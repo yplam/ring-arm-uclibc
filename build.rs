@@ -42,23 +42,19 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[], "crypto/limbs/limbs.c"),
     (&[], "crypto/mem.c"),
     (&[], "crypto/poly1305/poly1305.c"),
-
     (&[AARCH64, ARM, X86_64, X86], "crypto/crypto.c"),
     (&[AARCH64, ARM, X86_64, X86], "crypto/curve25519/curve25519.c"),
     (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/ecp_nistz.c"),
     (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/ecp_nistz256.c"),
     (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/gfp_p256.c"),
     (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/gfp_p384.c"),
-
     (&[X86_64, X86], "crypto/cpu-intel.c"),
-
     (&[X86], "crypto/fipsmodule/aes/asm/aesni-x86.pl"),
     (&[X86], "crypto/fipsmodule/aes/asm/vpaes-x86.pl"),
     (&[X86], "crypto/fipsmodule/bn/asm/x86-mont.pl"),
     (&[X86], "crypto/chacha/asm/chacha-x86.pl"),
     (&[X86], "crypto/fipsmodule/ec/asm/ecp_nistz256-x86.pl"),
     (&[X86], "crypto/fipsmodule/modes/asm/ghash-x86.pl"),
-
     (&[X86_64], "crypto/fipsmodule/aes/asm/aesni-x86_64.pl"),
     (&[X86_64], "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl"),
     (&[X86_64], "crypto/fipsmodule/bn/asm/x86_64-mont.pl"),
@@ -70,10 +66,8 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[X86_64], "crypto/poly1305/poly1305_vec.c"),
     (&[X86_64], SHA512_X86_64),
     (&[X86_64], "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl"),
-
     (&[AARCH64, ARM], "crypto/fipsmodule/aes/asm/aesv8-armx.pl"),
     (&[AARCH64, ARM], "crypto/fipsmodule/modes/asm/ghashv8-armx.pl"),
-
     (&[ARM], "crypto/fipsmodule/aes/asm/bsaes-armv7.pl"),
     (&[ARM], "crypto/fipsmodule/aes/asm/vpaes-armv7.pl"),
     (&[ARM], "crypto/fipsmodule/bn/asm/armv4-mont.pl"),
@@ -85,7 +79,6 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[ARM], "crypto/poly1305/poly1305_arm_asm.S"),
     (&[ARM], "crypto/fipsmodule/sha/asm/sha256-armv4.pl"),
     (&[ARM], "crypto/fipsmodule/sha/asm/sha512-armv4.pl"),
-
     (&[AARCH64], "crypto/fipsmodule/aes/asm/vpaes-armv8.pl"),
     (&[AARCH64], "crypto/fipsmodule/bn/asm/armv8-mont.pl"),
     (&[AARCH64], "crypto/chacha/asm/chacha-armv8.pl"),
@@ -105,37 +98,37 @@ const RING_TEST_SRCS: &[&str] = &[("crypto/constant_time_test.c")];
 #[rustfmt::skip]
 const RING_INCLUDES: &[&str] =
     &[
-      "crypto/curve25519/curve25519_tables.h",
-      "crypto/curve25519/internal.h",
-      "crypto/fipsmodule/bn/internal.h",
-      "crypto/fipsmodule/ec/ecp_nistz256_table.inl",
-      "crypto/fipsmodule/ec/ecp_nistz384.inl",
-      "crypto/fipsmodule/ec/ecp_nistz.h",
-      "crypto/fipsmodule/ec/ecp_nistz384.h",
-      "crypto/fipsmodule/ec/ecp_nistz256.h",
-      "crypto/internal.h",
-      "crypto/limbs/limbs.h",
-      "crypto/limbs/limbs.inl",
-      "crypto/poly1305/internal.h",
-      "include/GFp/aes.h",
-      "include/GFp/arm_arch.h",
-      "include/GFp/base.h",
-      "include/GFp/check.h",
-      "include/GFp/cpu.h",
-      "include/GFp/mem.h",
-      "include/GFp/poly1305.h",
-      "include/GFp/type_check.h",
-      "third_party/fiat/curve25519_32.h",
-      "third_party/fiat/curve25519_64.h",
+        "crypto/curve25519/curve25519_tables.h",
+        "crypto/curve25519/internal.h",
+        "crypto/fipsmodule/bn/internal.h",
+        "crypto/fipsmodule/ec/ecp_nistz256_table.inl",
+        "crypto/fipsmodule/ec/ecp_nistz384.inl",
+        "crypto/fipsmodule/ec/ecp_nistz.h",
+        "crypto/fipsmodule/ec/ecp_nistz384.h",
+        "crypto/fipsmodule/ec/ecp_nistz256.h",
+        "crypto/internal.h",
+        "crypto/limbs/limbs.h",
+        "crypto/limbs/limbs.inl",
+        "crypto/poly1305/internal.h",
+        "include/GFp/aes.h",
+        "include/GFp/arm_arch.h",
+        "include/GFp/base.h",
+        "include/GFp/check.h",
+        "include/GFp/cpu.h",
+        "include/GFp/mem.h",
+        "include/GFp/poly1305.h",
+        "include/GFp/type_check.h",
+        "third_party/fiat/curve25519_32.h",
+        "third_party/fiat/curve25519_64.h",
     ];
 
 #[rustfmt::skip]
 const RING_PERL_INCLUDES: &[&str] =
     &["crypto/perlasm/arm-xlate.pl",
-      "crypto/perlasm/x86gas.pl",
-      "crypto/perlasm/x86nasm.pl",
-      "crypto/perlasm/x86asm.pl",
-      "crypto/perlasm/x86_64-xlate.pl"];
+        "crypto/perlasm/x86gas.pl",
+        "crypto/perlasm/x86nasm.pl",
+        "crypto/perlasm/x86asm.pl",
+        "crypto/perlasm/x86_64-xlate.pl"];
 
 const RING_BUILD_FILE: &[&str] = &["build.rs"];
 
@@ -168,7 +161,7 @@ fn cpp_flags(target: &Target) -> &'static [&'static str] {
             "-Wenum-compare",
             "-Wfloat-equal",
             "-Wformat=2",
-            "-Winline",
+            // "-Winline",
             "-Winvalid-pch",
             "-Wmissing-field-initializers",
             "-Wmissing-include-dirs",

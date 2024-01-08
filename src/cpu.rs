@@ -31,7 +31,8 @@ pub(crate) fn features() -> Features {
         target_arch = "x86_64",
         all(
             any(target_arch = "aarch64", target_arch = "arm"),
-            any(target_os = "android", target_os = "fuchsia", target_os = "linux")
+            any(target_os = "android", target_os = "fuchsia", target_os = "linux"),
+            not(target_env = "uclibc")
         )
     ))]
     {
@@ -63,7 +64,8 @@ pub(crate) fn features() -> Features {
 pub(crate) mod arm {
     #[cfg(all(
         any(target_os = "android", target_os = "linux"),
-        any(target_arch = "aarch64", target_arch = "arm")
+        any(target_arch = "aarch64", target_arch = "arm"),
+        not(target_env = "uclibc")
     ))]
     pub fn setup() {
         use libc::c_ulong;
@@ -238,7 +240,8 @@ pub(crate) mod arm {
 
             #[cfg(all(
                 any(target_os = "android", target_os = "fuchsia", target_os = "linux"),
-                any(target_arch = "arm", target_arch = "aarch64")
+                any(target_arch = "arm", target_arch = "aarch64"),
+                not(target_env = "uclibc")
             ))]
             {
                 if self.mask == self.mask & unsafe { GFp_armcap_P } {
