@@ -45,17 +45,13 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[], "crypto/limbs/limbs.c"),
     (&[], "crypto/mem.c"),
     (&[], "crypto/poly1305/poly1305.c"),
-
     (&[AARCH64, ARM, X86_64, X86], "crypto/crypto.c"),
-
     (&[X86_64, X86], "crypto/cpu_intel.c"),
-
     (&[X86], "crypto/fipsmodule/aes/asm/aesni-x86.pl"),
     (&[X86], "crypto/fipsmodule/aes/asm/vpaes-x86.pl"),
     (&[X86], "crypto/fipsmodule/bn/asm/x86-mont.pl"),
     (&[X86], "crypto/chacha/asm/chacha-x86.pl"),
     (&[X86], "crypto/fipsmodule/modes/asm/ghash-x86.pl"),
-
     (&[X86_64], "crypto/chacha/asm/chacha-x86_64.pl"),
     (&[X86_64], "crypto/curve25519/curve25519_64_adx.c"),
     (&[X86_64], "crypto/fipsmodule/aes/asm/aesni-x86_64.pl"),
@@ -70,12 +66,9 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[X86_64], "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl"),
     (&[X86_64], "third_party/fiat/asm/fiat_curve25519_adx_mul.S"),
     (&[X86_64], "third_party/fiat/asm/fiat_curve25519_adx_square.S"),
-
     (&[AARCH64, X86_64], "crypto/fipsmodule/ec/p256-nistz.c"),
-
     (&[AARCH64, ARM], "crypto/fipsmodule/aes/asm/aesv8-armx.pl"),
     (&[AARCH64, ARM], "crypto/fipsmodule/modes/asm/ghashv8-armx.pl"),
-
     (&[ARM], "crypto/fipsmodule/aes/asm/bsaes-armv7.pl"),
     (&[ARM], "crypto/fipsmodule/aes/asm/vpaes-armv7.pl"),
     (&[ARM], "crypto/fipsmodule/bn/asm/armv4-mont.pl"),
@@ -86,7 +79,6 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[ARM], "crypto/poly1305/poly1305_arm_asm.S"),
     (&[ARM], "crypto/fipsmodule/sha/asm/sha256-armv4.pl"),
     (&[ARM], "crypto/fipsmodule/sha/asm/sha512-armv4.pl"),
-
     (&[AARCH64], "crypto/chacha/asm/chacha-armv8.pl"),
     (&[AARCH64], "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl"),
     (&[AARCH64], "crypto/fipsmodule/aes/asm/vpaes-armv8.pl"),
@@ -121,7 +113,7 @@ fn cpp_flags(compiler: &cc::Tool) -> &'static [&'static str] {
             "-Wenum-compare",
             "-Wfloat-equal",
             "-Wformat=2",
-            "-Winline",
+            // "-Winline",
             "-Winvalid-pch",
             "-Wmissing-field-initializers",
             "-Wmissing-include-dirs",
@@ -506,7 +498,7 @@ fn build_library<'a>(
     target: &Target,
     out_dir: &Path,
     lib_name: &str,
-    srcs: impl Iterator<Item = &'a PathBuf>,
+    srcs: impl Iterator<Item=&'a PathBuf>,
     preassembled_objs: &[PathBuf],
 ) {
     let mut c = new_build(target, out_dir);

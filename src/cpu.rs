@@ -27,17 +27,18 @@ pub(crate) fn features() -> Features {
     // We don't do runtime feature detection on aarch64-apple-* as all AAarch64
     // features we use are available on every device since the first devices.
     #[cfg(any(
-        target_arch = "x86",
-        target_arch = "x86_64",
-        all(
-            any(target_arch = "aarch64", target_arch = "arm"),
-            any(
-                target_os = "android",
-                target_os = "fuchsia",
-                target_os = "linux",
-                target_os = "windows"
-            )
-        )
+    target_arch = "x86",
+    target_arch = "x86_64",
+    all(
+    any(target_arch = "aarch64", target_arch = "arm"),
+    any(
+    target_os = "android",
+    target_os = "fuchsia",
+    target_os = "linux",
+    target_os = "windows"
+    ),
+    not(target_env = "uclibc")
+    )
     ))]
     {
         static INIT: spin::Once<()> = spin::Once::new();
@@ -53,13 +54,13 @@ pub(crate) fn features() -> Features {
             }
 
             #[cfg(all(
-                any(target_arch = "aarch64", target_arch = "arm"),
-                any(
-                    target_os = "android",
-                    target_os = "fuchsia",
-                    target_os = "linux",
-                    target_os = "windows"
-                )
+            any(target_arch = "aarch64", target_arch = "arm"),
+            any(
+            target_os = "android",
+            target_os = "fuchsia",
+            target_os = "linux",
+            target_os = "windows"
+            )
             ))]
             {
                 unsafe { arm::initialize_OPENSSL_armcap_P() }

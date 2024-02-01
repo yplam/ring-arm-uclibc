@@ -13,13 +13,14 @@
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #![cfg_attr(
-    not(any(target_arch = "aarch64", target_arch = "arm")),
-    allow(dead_code)
+not(any(target_arch = "aarch64", target_arch = "arm")),
+allow(dead_code)
 )]
 
 #[cfg(all(
-    any(target_os = "android", target_os = "linux"),
-    any(target_arch = "aarch64", target_arch = "arm")
+any(target_os = "android", target_os = "linux"),
+any(target_arch = "aarch64", target_arch = "arm"),
+not(target_env = "uclibc")
 ))]
 fn detect_features() -> u32 {
     use libc::c_ulong;
@@ -59,7 +60,7 @@ fn detect_features() -> u32 {
         const OFFSET: c_ulong = 0;
 
         #[cfg(target_arch = "arm")]
-        let caps = {
+            let caps = {
             const AT_HWCAP2: c_ulong = 26;
             unsafe { getauxval(AT_HWCAP2) }
         };
@@ -193,13 +194,13 @@ impl Feature {
         }
 
         #[cfg(all(
-            any(
-                target_os = "android",
-                target_os = "fuchsia",
-                target_os = "linux",
-                target_os = "windows"
-            ),
-            any(target_arch = "arm", target_arch = "aarch64")
+        any(
+        target_os = "android",
+        target_os = "fuchsia",
+        all(target_os = "linux", not(target_env = "uclibc")),
+        target_os = "windows"
+        ),
+        any(target_arch = "arm", target_arch = "aarch64")
         ))]
         {
             // SAFETY: See `OPENSSL_armcap_P`'s safety documentation.
@@ -247,13 +248,13 @@ features! {
 //   `INIT`.
 // - See the safety invariants of `OPENSSL_armcap_P` below.
 #[cfg(all(
-    any(target_arch = "aarch64", target_arch = "arm"),
-    any(
-        target_os = "android",
-        target_os = "fuchsia",
-        target_os = "linux",
-        target_os = "windows"
-    )
+any(target_arch = "aarch64", target_arch = "arm"),
+any(
+target_os = "android",
+target_os = "fuchsia",
+all(target_os = "linux", not(target_env = "uclibc")),
+target_os = "windows"
+)
 ))]
 pub unsafe fn initialize_OPENSSL_armcap_P() {
     let detected = detect_features();
